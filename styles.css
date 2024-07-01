@@ -76,18 +76,41 @@ body {
     }
 
     .stone {
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
         margin: 5px;
     }
 
     #bracelet-area {
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
     }
 
     .place-holder {
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+
+    .stone {
+        width: 15px;
+        height: 15px;
+        margin: 3px;
+    }
+
+    #bracelet-area {
+        width: 120px;
+        height: 120px;
+    }
+
+    .place-holder {
+        width: 12px;
+        height: 12px;
     }
 }
