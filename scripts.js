@@ -102,12 +102,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateStoneSize() {
         const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
+        let newSize;
+        if (stoneSize === '6') newSize = '10px';
+        else if (stoneSize === '8') newSize = '15px';
+        else if (stoneSize === '10') newSize = '20px';
         const placeholders = braceletArea.querySelectorAll('.place-holder');
         placeholders.forEach(placeholder => {
-            let newSize;
-            if (stoneSize === '6') newSize = '10px';
-            else if (stoneSize === '8') newSize = '15px';
-            else if (stoneSize === '10') newSize = '20px';
             placeholder.style.width = newSize;
             placeholder.style.height = newSize;
         });
