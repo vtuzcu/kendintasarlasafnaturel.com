@@ -2,17 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const stones = document.querySelectorAll('.stone');
     const braceletArea = document.getElementById('bracelet-area');
     const totalPriceElement = document.getElementById('total-price');
-    const sizeInputs = document.querySelectorAll('input[name="size"]');
-    const stoneSizeInputs = document.querySelectorAll('input[name="stone-size"]');
     let totalPrice = 0;
-
-    sizeInputs.forEach(input => {
-        input.addEventListener('change', updateBraceletSize);
-    });
-
-    stoneSizeInputs.forEach(input => {
-        input.addEventListener('change', updateStoneSize);
-    });
 
     stones.forEach(stone => {
         stone.addEventListener('dragstart', dragStart);
@@ -90,34 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         totalPriceElement.textContent = totalPrice.toFixed(2);
     }
 
-    function updateBraceletSize() {
-        const size = document.querySelector('input[name="size"]:checked').value;
-        let newSize;
-        if (size === 'S') newSize = '200px';
-        else if (size === 'M') newSize = '250px';
-        else if (size === 'L') newSize = '300px';
-        braceletArea.style.width = newSize;
-        braceletArea.style.height = newSize;
-    }
-
-    function updateStoneSize() {
-        const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
-        let newSize;
-        if (stoneSize === '6') newSize = '10px';
-        else if (stoneSize === '8') newSize = '15px';
-        else if (stoneSize === '10') newSize = '20px';
-        const placeholders = braceletArea.querySelectorAll('.place-holder');
-        placeholders.forEach(placeholder => {
-            placeholder.style.width = newSize;
-            placeholder.style.height = newSize;
-        });
-    }
-
     document.getElementById('add-to-cart').addEventListener('click', function () {
         alert(`Total price is $${totalPrice.toFixed(2)}`);
     });
-
-    // Initialize sizes on load
-    updateBraceletSize();
-    updateStoneSize();
 });
