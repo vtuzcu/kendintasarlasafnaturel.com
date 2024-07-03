@@ -91,3 +91,26 @@ body {
         height: 10px; /* Adjusted size for mobile */
     }
 }
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+
+    .stone {
+        width: 15px;
+        height: 15px;
+        margin: 3px;
+    }
+
+    #bracelet-area {
+        width: 120px;
+        height: 120px;
+    }
+
+    .place-holder {
+        width: 12px;
+        height: 12px;
+    }
+}
