@@ -37,4 +37,80 @@ body {
 
 #bracelet-area {
     position: relative;
-    width: 400px
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    border: 1px dashed #ccc;
+    border-radius: 50%;
+}
+
+.place-holder {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}
+
+.total-price {
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .available-stones {
+        width: 100%;
+        text-align: center;
+    }
+
+    .stones {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+    }
+
+    .stone {
+        width: 20px;
+        height: 20px;
+        margin: 5px;
+    }
+
+    #bracelet-area {
+        width: 150px;
+        height: 150px;
+    }
+
+    .place-holder {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+
+    .stone {
+        width: 15px;
+        height: 15px;
+        margin: 3px;
+    }
+
+    #bracelet-area {
+        width: 120px;
+        height: 120px;
+    }
+
+    .place-holder {
+        width: 12px;
+        height: 12px;
+    }
+}
