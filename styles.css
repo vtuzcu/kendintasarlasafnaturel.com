@@ -37,22 +37,4 @@ body {
 
 #bracelet-area {
     position: relative;
-    width: 400px;
-    height: 400px;
-    margin: 0 auto;
-    border: 1px dashed #ccc;
-    border-radius: 50%;
-}
-
-.place-holder {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-}
-
-.total-price {
-    margin-top: 20px;
-}
+    width: 400px
