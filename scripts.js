@@ -6,10 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     stones.forEach(stone => {
         stone.addEventListener('dragstart', dragStart);
+        stone.addEventListener('touchstart', touchStart, { passive: false });
     });
 
     braceletArea.addEventListener('dragover', dragOver);
     braceletArea.addEventListener('drop', drop);
+    braceletArea.addEventListener('touchmove', touchMove, { passive: false });
+    braceletArea.addEventListener('touchend', touchEnd, { passive: false });
 
     function dragStart(e) {
         e.dataTransfer.setData('text/plain', e.target.dataset.id);
@@ -24,6 +27,40 @@ document.addEventListener('DOMContentLoaded', function () {
         const id = e.dataTransfer.getData('text');
         const stone = document.querySelector(`.stone[data-id='${id}']`);
         addStoneToBracelet(stone);
+    }
+
+    function touchStart(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const stone = e.target;
+        stone.style.position = 'absolute';
+        stone.style.left = `${touch.pageX - stone.offsetWidth / 2}px`;
+        stone.style.top = `${touch.pageY - stone.offsetHeight / 2}px`;
+        document.body.append(stone);
+
+        stone.addEventListener('touchmove', touchMove);
+        stone.addEventListener('touchend', touchEnd);
+    }
+
+    function touchMove(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const stone = e.target;
+        stone.style.left = `${touch.pageX - stone.offsetWidth / 2}px`;
+        stone.style.top = `${touch.pageY - stone.offsetHeight / 2}px`;
+    }
+
+    function touchEnd(e) {
+        e.preventDefault();
+        const touch = e.changedTouches[0];
+        const stone = e.target;
+        const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+        
+        if (dropTarget && dropTarget.id === 'bracelet-area') {
+            addStoneToBracelet(stone);
+        } else {
+            stone.remove();
+        }
     }
 
     function addStoneToBracelet(stone) {
