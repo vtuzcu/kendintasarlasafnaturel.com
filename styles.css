@@ -56,3 +56,38 @@ body {
 .total-price {
     margin-top: 20px;
 }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .available-stones {
+        width: 100%;
+        text-align: center;
+    }
+
+    .stones {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+    }
+
+    .stone {
+        width: 30px;
+        height: 30px;
+        margin: 5px;
+    }
+
+    #bracelet-area {
+        width: 200px;
+        height: 200px;
+    }
+
+    .place-holder {
+        width: 20px;
+        height: 20px;
+    }
+}
