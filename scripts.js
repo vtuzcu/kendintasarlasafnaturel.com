@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         const touch = e.touches[0];
         const stone = e.target;
+        stone.classList.add('dragging');
         stone.style.position = 'absolute';
         stone.style.left = `${touch.pageX - stone.offsetWidth / 2}px`;
         stone.style.top = `${touch.pageY - stone.offsetHeight / 2}px`;
@@ -45,21 +46,25 @@ document.addEventListener('DOMContentLoaded', function () {
     function touchMove(e) {
         e.preventDefault();
         const touch = e.touches[0];
-        const stone = e.target;
-        stone.style.left = `${touch.pageX - stone.offsetWidth / 2}px`;
-        stone.style.top = `${touch.pageY - stone.offsetHeight / 2}px`;
+        const stone = document.querySelector('.dragging');
+        if (stone) {
+            stone.style.left = `${touch.pageX - stone.offsetWidth / 2}px`;
+            stone.style.top = `${touch.pageY - stone.offsetHeight / 2}px`;
+        }
     }
 
     function touchEnd(e) {
         e.preventDefault();
         const touch = e.changedTouches[0];
-        const stone = e.target;
-        const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-        
-        if (dropTarget && dropTarget.id === 'bracelet-area') {
-            addStoneToBracelet(stone);
-        } else {
-            stone.remove();
+        const stone = document.querySelector('.dragging');
+        if (stone) {
+            const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+            if (dropTarget && dropTarget.id === 'bracelet-area') {
+                addStoneToBracelet(stone);
+            } else {
+                stone.remove();
+            }
+            stone.classList.remove('dragging');
         }
     }
 
