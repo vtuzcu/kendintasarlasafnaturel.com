@@ -76,18 +76,16 @@ body {
     }
 
     .stone {
-        width: 30px;
-        height: 30px;
         margin: 5px;
     }
 
     #bracelet-area {
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 300px;
     }
 
     .place-holder {
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
     }
 }
