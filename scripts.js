@@ -38,7 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         const id = e.dataTransfer.getData('text');
         const stone = document.querySelector(`.stone[data-id='${id}']`);
-        addStoneToBracelet(stone);
+        if (stone) {
+            addStoneToBracelet(stone);
+        }
     }
 
     function touchStart(e) {
@@ -83,15 +85,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function addStoneToBracelet(stone) {
         const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
         const placeholderSize = stoneSize === '6' ? '20px' : stoneSize === '8' ? '30px' : '40px';
-        const placeholder = document.createElement('div');
-        placeholder.className = 'place-holder';
-        placeholder.style.width = placeholderSize;
-        placeholder.style.height = placeholderSize;
-        placeholder.style.left = `${stone.offsetLeft}px`;
-        placeholder.style.top = `${stone.offsetTop}px`;
-        placeholder.style.backgroundImage = `url(${stone.src})`;
-        placeholder.style.backgroundSize = 'cover';
-        braceletArea.appendChild(placeholder);
+        const newStone = document.createElement('div');
+        newStone.className = 'stone';
+        newStone.style.width = placeholderSize;
+        newStone.style.height = placeholderSize;
+        newStone.style.backgroundImage = `url(${stone.src})`;
+        newStone.style.backgroundSize = 'cover';
+        braceletArea.appendChild(newStone);
 
         const price = parseFloat(stone.dataset.price);
         totalPrice += price;
