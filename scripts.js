@@ -81,10 +81,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function addStoneToBracelet(stone) {
+        const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
+        const placeholderSize = stoneSize === '6' ? '20px' : stoneSize === '8' ? '30px' : '40px';
         const placeholder = document.createElement('div');
         placeholder.className = 'place-holder';
+        placeholder.style.width = placeholderSize;
+        placeholder.style.height = placeholderSize;
         placeholder.style.left = `${stone.offsetLeft}px`;
         placeholder.style.top = `${stone.offsetTop}px`;
+        placeholder.style.backgroundImage = `url(${stone.src})`;
+        placeholder.style.backgroundSize = 'cover';
         braceletArea.appendChild(placeholder);
 
         const price = parseFloat(stone.dataset.price);
