@@ -84,11 +84,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addStoneToBracelet(stone) {
         const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
-        const placeholderSize = stoneSize === '6' ? '20px' : stoneSize === '8' ? '30px' : '40px';
         const newStone = document.createElement('div');
         newStone.className = 'stone';
-        newStone.style.width = placeholderSize;
-        newStone.style.height = placeholderSize;
+        newStone.style.width = `${stoneSize}px`;
+        newStone.style.height = `${stoneSize}px`;
         newStone.style.backgroundImage = `url(${stone.src})`;
         newStone.style.backgroundSize = 'cover';
         braceletArea.appendChild(newStone);
@@ -103,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const size = document.querySelector('input[name="size"]:checked').value;
         const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
         const stoneCount = size === 'S' ? 16 : size === 'M' ? 18 : 20;
-        const radius = braceletArea.offsetWidth / 2 - (parseInt(stoneSize) / 2);
+        const radius = (braceletArea.offsetWidth / 2) - (parseInt(stoneSize) / 2);
 
         for (let i = 0; i < stoneCount; i++) {
             const angle = (i / stoneCount) * (2 * Math.PI);
