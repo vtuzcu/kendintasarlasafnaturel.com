@@ -117,7 +117,4 @@ document.addEventListener('DOMContentLoaded', function () {
         alert(`Total price is $${totalPrice.toFixed(2)}`);
     });
 
-    // Initialize sizes on load
-    updateBraceletSize();
-    updateStoneSize();
-});
+    document.getElementById('
