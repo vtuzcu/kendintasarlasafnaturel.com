@@ -7,12 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
     let totalPrice = 0;
 
     sizeInputs.forEach(input => {
-        input.addEventListener('change', updateBraceletSize);
+        input.addEventListener('change', generateBraceletTemplate);
     });
 
     stoneSizeInputs.forEach(input => {
-        input.addEventListener('change', updateStoneSize);
+        input.addEventListener('change', generateBraceletTemplate);
     });
+
+    document.getElementById('generate-bracelet').addEventListener('click', generateBraceletTemplate);
 
     stones.forEach(stone => {
         stone.addEventListener('dragstart', dragStart);
@@ -90,31 +92,31 @@ document.addEventListener('DOMContentLoaded', function () {
         totalPriceElement.textContent = totalPrice.toFixed(2);
     }
 
-    function updateBraceletSize() {
+    function generateBraceletTemplate() {
+        braceletArea.innerHTML = '';
         const size = document.querySelector('input[name="size"]:checked').value;
-        let newSize;
-        if (size === 'S') newSize = '200px';
-        else if (size === 'M') newSize = '250px';
-        else if (size === 'L') newSize = '300px';
-        braceletArea.style.width = newSize;
-        braceletArea.style.height = newSize;
-    }
-
-    function updateStoneSize() {
         const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
-        let newSize;
-        if (stoneSize === '6') newSize = '10px';
-        else if (stoneSize === '8') newSize = '15px';
-        else if (stoneSize === '10') newSize = '20px';
-        const placeholders = braceletArea.querySelectorAll('.place-holder');
-        placeholders.forEach(placeholder => {
-            placeholder.style.width = newSize;
-            placeholder.style.height = newSize;
-        });
+        const stoneCount = size === 'S' ? 16 : size === 'M' ? 18 : 20;
+        const radius = braceletArea.offsetWidth / 2 - stoneSize;
+
+        for (let i = 0; i < stoneCount; i++) {
+            const angle = (i / stoneCount) * (2 * Math.PI);
+            const x = radius * Math.cos(angle) + braceletArea.offsetWidth / 2;
+            const y = radius * Math.sin(angle) + braceletArea.offsetHeight / 2;
+
+            const placeholder = document.createElement('div');
+            placeholder.className = 'place-holder';
+            placeholder.style.width = `${stoneSize}px`;
+            placeholder.style.height = `${stoneSize}px`;
+            placeholder.style.left = `${x - stoneSize / 2}px`;
+            placeholder.style.top = `${y - stoneSize / 2}px`;
+            braceletArea.appendChild(placeholder);
+        }
     }
 
     document.getElementById('add-to-cart').addEventListener('click', function () {
         alert(`Total price is $${totalPrice.toFixed(2)}`);
     });
 
-    document.getElementById('
+    generateBraceletTemplate(); // Initialize the template on load
+});
