@@ -48,8 +48,6 @@ body {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 50%;
-    width: 10px; /* Default size for 6mm stones */
-    height: 10px; /* Default size for 6mm stones */
     position: absolute;
 }
 
