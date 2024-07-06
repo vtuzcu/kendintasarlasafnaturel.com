@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const size = document.querySelector('input[name="size"]:checked').value;
         const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
         const stoneCount = size === 'S' ? 16 : size === 'M' ? 18 : 20;
-        const radius = braceletArea.offsetWidth / 2 - stoneSize;
+        const radius = braceletArea.offsetWidth / 2 - parseInt(stoneSize);
 
         for (let i = 0; i < stoneCount; i++) {
             const angle = (i / stoneCount) * (2 * Math.PI);
