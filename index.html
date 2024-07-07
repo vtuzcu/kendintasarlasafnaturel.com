@@ -1,42 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bracelet Designer</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Bracelet Designer</h1>
-        <div class="controls">
-            <label for="size">Bracelet Size:</label>
-            <input type="radio" name="size" value="S" checked> S (18 cm)
-            <input type="radio" name="size" value="M"> M (20 cm)
-            <input type="radio" name="size" value="L"> L (22 cm)
+{% layout 'theme' %}
+<link rel="stylesheet" href="{{ 'styles.css' | asset_url }}">
+<div class="container kendin-tasarla-page">
+    <h1>Kendin Tasarla</h1>
+    <div class="controls">
+        <label for="size">Bileklik Ölçüsü:</label>
+        <input type="radio" name="size" value="S" checked> S (18 cm)
+        <input type="radio" name="size" value="M"> M (20 cm)
+        <input type="radio" name="size" value="L"> L (22 cm)
 
-            <label for="stone-size">Stone Size:</label>
-            <input type="radio" name="stone-size" value="6" checked> 6mm
-            <input type="radio" name="stone-size" value="8"> 8mm
-            <button id="generate-bracelet">Generate Bracelet</button>
-        </div>
-        <div class="available-stones">
-            <h2>Available Stones</h2>
-            <div class="stones">
-                <img src="path_to_your_image_1" class="stone" draggable="true" data-price="5">
-                <img src="path_to_your_image_2" class="stone" draggable="true" data-price="7">
-                <img src="path_to_your_image_3" class="stone" draggable="true" data-price="6">
-                <!-- Diğer taş görsellerini buraya ekleyin -->
-            </div>
-        </div>
-        <div id="bracelet-area">
-            <h2>Your Bracelet</h2>
-        </div>
-        <div class="total-price">
-            <h2>Total Price: $<span id="total-price">0</span></h2>
-        </div>
-        <button id="add-to-cart">Add to Cart</button>
+        <label for="stone-size">Taş Boyutu:</label>
+        <input type="radio" name="stone-size" value="6" checked> 6mm
+        <input type="radio" name="stone-size" value="8"> 8mm
+        <button id="generate-bracelet">Bilekliği Oluştur</button>
     </div>
-    <script src="scripts.js"></script>
-</body>
-</html>
+    <div class="available-stones">
+        <h2>Mevcut Taşlar</h2>
+        <div class="stones">
+            <img src="{{ 'akik_karnelyan.png' | asset_url }}" class="stone" draggable="true" data-price="5">
+            <img src="{{ 'akik_yemen.png' | asset_url }}" class="stone" draggable="true" data-price="7">
+        </div>
+    </div>
+    <div id="bracelet-area">
+        <h2></h2>
+    </div>
+    <div class="total-price">
+        <h2>Toplam Fiyat: $<span id="total-price">0</span></h2>
+    </div>
+    <button id="add-to-cart">Sepete Ekle</button>
+</div>
+<script src="{{ 'scripts.js' | asset_url }}"></script>
+
