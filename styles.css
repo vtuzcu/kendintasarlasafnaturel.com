@@ -37,8 +37,8 @@ body {
 
 #bracelet-area {
     position: relative;
-    width: 300px; /* Adjusted size */
-    height: 300px; /* Adjusted size */
+    width: 400px;
+    height: 400px;
     margin: 0 auto;
     border: 1px dashed #ccc;
     border-radius: 50%;
@@ -48,41 +48,8 @@ body {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 50%;
-    position: absolute;
 }
 
 .total-price {
     margin-top: 20px;
 }
-
-.dragging {
-    opacity: 0.5;
-}
-
-#add-to-cart {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#add-to-cart:hover {
-    background-color: #218838;
-}
-
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
-
-    #bracelet-area {
-        width: 200px; /* Smaller size for mobile */
-        height: 200px; /* Smaller size for mobile */
-    }
-
-    .stone {
-        width: 40px; /* Smaller size for mobile */
-        height: 40px;
