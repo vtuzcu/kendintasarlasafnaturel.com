@@ -55,60 +55,36 @@ body {
     margin-top: 20px;
 }
 
-/* Responsive adjustments */
+.dragging {
+    opacity: 0.5;
+}
+
+#add-to-cart {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-to-cart:hover {
+    background-color: #218838;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 10px;
     }
 
-    .available-stones {
-        width: 100%;
-        text-align: center;
-    }
-
-    .stones {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        height: auto;
+    #bracelet-area {
+        width: 200px; /* Smaller size for mobile */
+        height: 200px; /* Smaller size for mobile */
     }
 
     .stone {
-        width: 20px;
-        height: 20px;
-        margin: 5px;
-    }
-
-    #bracelet-area {
-        width: 150px;
-        height: 150px;
-    }
-
-    .place-holder {
-        width: 20px;
-        height: 20px;
-    }
-}
-
-/* Further adjustments for very small screens */
-@media (max-width: 480px) {
-    .container {
-        padding: 5px;
-    }
-
-    .stone {
-        width: 15px;
-        height: 15px;
-        margin: 3px;
-    }
-
-    #bracelet-area {
-        width: 120px;
-        height: 120px;
-    }
-
-    .place-holder {
-        width: 12px;
-        height: 12px;
+        width: 40px; /* Smaller size for mobile */
+        height: 40px; /* Smaller size for mobile */
     }
 }
