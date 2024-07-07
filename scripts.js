@@ -38,9 +38,6 @@ function createPlaceHolders(numStones, stoneSize) {
         placeHolder.style.position = 'absolute';
         placeHolder.style.left = `${x}px`;
         placeHolder.style.top = `${y}px`;
-        placeHolder.style.backgroundColor = 'white'; // Beyaz taşlar için renk
-        placeHolder.style.border = '1px solid #ccc'; // Beyaz taşlar için kenarlık
-        placeHolder.style.borderRadius = '50%'; // Daire şeklinde
         braceletArea.appendChild(placeHolder);
     }
 }
@@ -57,7 +54,6 @@ document.getElementById('bracelet-area').addEventListener('drop', drop);
 function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.src);
     e.dataTransfer.setData('price', e.target.dataset.price);
-    e.dataTransfer.setData('origin', 'initial'); // Taşın orijinal alanını belirtmek için
     e.target.classList.add('dragging');
 }
 
@@ -73,7 +69,7 @@ function dragEnd(e) {
         if (!withinBraceletArea) {
             const price = parseFloat(draggingStone.dataset.price);
             updateTotalPrice(-price);
-            draggingStone.remove(); // Taşı tamamen kaldır
+            draggingStone.remove();
         }
         draggingStone.classList.remove('dragging');
     }
@@ -134,4 +130,10 @@ function getClosestPlaceHolder(x, y) {
 }
 
 function updateTotalPrice(price) {
-    totalPrice
+    totalPrice += parseFloat(price);
+    document.getElementById('total-price').textContent = totalPrice.toFixed(2);
+}
+
+document.getElementById('add-to-cart').addEventListener('click', () => {
+    alert('Bracelet added to cart! Total price: $' + totalPrice);
+});
