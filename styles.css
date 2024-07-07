@@ -37,8 +37,8 @@ body {
 
 #bracelet-area {
     position: relative;
-    width: 200px; /* Default size for small */
-    height: 200px; /* Default size for small */
+    width: 300px; /* Adjusted size */
+    height: 300px; /* Adjusted size */
     margin: 0 auto;
     border: 1px dashed #ccc;
     border-radius: 50%;
