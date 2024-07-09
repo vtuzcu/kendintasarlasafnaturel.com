@@ -10,21 +10,21 @@ function generateBracelet() {
     const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
     const numStones = getNumStones(size, stoneSize);
 
-    braceletArea.innerHTML = ''; // Eski yerleştiricileri temizle
+    braceletArea.innerHTML = ''; // Clear previous placeholders
     createPlaceHolders(numStones, stoneSize);
 }
 
 function getNumStones(size, stoneSize) {
     const stoneCounts = {
-        '6': { 'S': 27, 'M': 30, 'L': 33 },
-        '8': { 'S': 20, 'M': 23, 'L': 26 },
-        '10': { 'S': 16, 'M': 18, 'L': 20 }
+        '6mm': { 'S': 27, 'M': 30, 'L': 33 },
+        '8mm': { 'S': 20, 'M': 23, 'L': 26 },
+        '10mm': { 'S': 16, 'M': 18, 'L': 20 }
     };
     return stoneCounts[stoneSize][size];
 }
 
 function createPlaceHolders(numStones, stoneSize) {
-    const radius = braceletArea.offsetWidth / 2 - 20; // Beyaz taş boyutunu 40px olarak ayarladık
+    const radius = braceletArea.offsetWidth / 2 - 20; // Adjust for placeholder size
     const angleStep = (2 * Math.PI) / numStones;
 
     for (let i = 0; i < numStones; i++) {
@@ -34,18 +34,18 @@ function createPlaceHolders(numStones, stoneSize) {
 
         const placeHolder = document.createElement('div');
         placeHolder.className = 'place-holder';
-        placeHolder.style.width = '40px';
-        placeHolder.style.height = '40px';
+        placeHolder.style.width = stoneSize === '6mm' ? '20px' : stoneSize === '8mm' ? '25px' : '30px';
+        placeHolder.style.height = stoneSize === '6mm' ? '20px' : stoneSize === '8mm' ? '25px' : '30px';
         placeHolder.style.left = `${x}px`;
         placeHolder.style.top = `${y}px`;
         braceletArea.appendChild(placeHolder);
     }
 }
 
-// Taşları sürükleme işlevselliği
+// Stone dragging functionality
 document.querySelectorAll('.stone').forEach(stone => {
     stone.addEventListener('dragstart', dragStart);
-    stone.addEventListener('dragend', dragEnd); // Sürükleme bittiğinde işlevi ekleyelim
+    stone.addEventListener('dragend', dragEnd);
 });
 
 document.getElementById('bracelet-area').addEventListener('dragover', dragOver);
