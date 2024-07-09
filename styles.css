@@ -3,88 +3,68 @@ body {
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+    display: flex;
 }
 
 .controls {
-    margin-bottom: 20px;
-}
-
-.available-stones {
-    text-align: left;
-    float: left;
-    width: 20%;
+    flex: 1;
+    padding: 10px;
+    border-right: 1px solid #ccc;
 }
 
 .stones {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border: 1px solid #ccc;
+    flex: 1;
     padding: 10px;
-    height: 400px;
-    overflow-y: auto;
+    border-right: 1px solid #ccc;
 }
 
 .stone {
+    display: inline-block;
     width: 50px;
     height: 50px;
+    margin: 5px;
     cursor: grab;
+}
+
+.stone img {
+    width: 100%;
+    height: 100%;
+}
+
+.bracelet-area {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+}
+
+.bracelet {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.place-holder {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #eee;
+    border: 1px solid #ccc;
 }
 
 #bracelet-area {
     position: relative;
-    width: 300px; /* Adjusted size */
-    height: 300px; /* Adjusted size */
-    margin: 0 auto;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ccc;
+    margin: 10px;
+}
+
+#bracelet {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     border: 1px dashed #ccc;
     border-radius: 50%;
-}
-
-.place-holder {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    position: absolute;
-}
-
-.total-price {
-    margin-top: 20px;
-}
-
-.dragging {
-    opacity: 0.5;
-}
-
-#add-to-cart {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#add-to-cart:hover {
-    background-color: #218838;
-}
-
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
-
-    #bracelet-area {
-        width: 200px; /* Smaller size for mobile */
-        height: 200px; /* Smaller size for mobile */
-    }
-
-    .stone {
-        width: 40px; /* Smaller size for mobile */
-        height: 40px; /* Smaller size for mobile */
-    }
 }
