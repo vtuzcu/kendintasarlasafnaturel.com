@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,12 @@
 </head>
 <body>
     <div class="container">
+        <div class="stones" id="stones">
+            <h2>Değerli Taşlar</h2>
+            <div class="stone" draggable="true" data-price="20"><img src="akik_karnelyan.png" alt="Akik Karnelyan"></div>
+            <div class="stone" draggable="true" data-price="25"><img src="akik_yemen.png" alt="Akik Yemen"></div>
+        </div>
+
         <div class="controls">
             <h1>Bileklik Tasarımcısı</h1>
             <label for="size">Ölçü:</label>
@@ -21,12 +27,6 @@
             <input type="radio" name="stone-size" value="10"> 10mm
             <br>
             <button id="generate-bracelet">Generate Bracelet</button>
-        </div>
-
-        <div class="stones" id="stones">
-            <h2>Değerli Taşlar</h2>
-            <div class="stone" draggable="true" data-price="20"><img src="akik_karnelyan.png" alt="Akik Karnelyan"></div>
-            <div class="stone" draggable="true" data-price="25"><img src="akik_yemen.png" alt="Akik Yemen"></div>
         </div>
 
         <div class="bracelet-area" id="bracelet-area">
