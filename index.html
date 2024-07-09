@@ -1,32 +1,35 @@
-{% layout 'theme' %}
-<link rel="stylesheet" href="{{ 'styles.css' | asset_url }}">
-<div class="container kendin-tasarla-page">
-    <h1>Kendin Tasarla</h1>
-    <div class="controls">
-        <label for="size">Bileklik Ölçüsü:</label>
-        <input type="radio" name="size" value="S" checked> S (18 cm)
-        <input type="radio" name="size" value="M"> M (20 cm)
-        <input type="radio" name="size" value="L"> L (22 cm)
-
-        <label for="stone-size">Taş Boyutu:</label>
-        <input type="radio" name="stone-size" value="6" checked> 6mm
-        <input type="radio" name="stone-size" value="8"> 8mm
-        <button id="generate-bracelet">Bilekliği Oluştur</button>
-    </div>
-    <div class="available-stones">
-        <h2>Mevcut Taşlar</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bracelet Designer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <label for="size">Ölçü:</label>
+            <input type="radio" name="size" value="S" checked> S (16cm)
+            <input type="radio" name="size" value="M"> M (18cm)
+            <input type="radio" name="size" value="L"> L (20cm)
+            <br>
+            <label for="stone-size">Taş Boyutu:</label>
+            <input type="radio" name="stone-size" value="6" checked> 6mm
+            <input type="radio" name="stone-size" value="8"> 8mm
+            <input type="radio" name="stone-size" value="10"> 10mm
+            <button id="generate-bracelet">Generate Bracelet</button>
+        </div>
         <div class="stones">
-            <img src="{{ 'akik_karnelyan.png' | asset_url }}" class="stone" draggable="true" data-price="5">
-            <img src="{{ 'akik_yemen.png' | asset_url }}" class="stone" draggable="true" data-price="7">
+            <h3>Değerli Taşlar</h3>
+            <div class="stone" draggable="true" data-price="10" data-name="Akik Botswana"><img src="akik_botswana.png" alt="Akik Botswana"></div>
+            <div class="stone" draggable="true" data-price="15" data-name="Akik Hint"><img src="akik_hint.png" alt="Akik Hint"></div>
+            <!-- Add more stones as needed -->
+        </div>
+        <div id="bracelet-area" class="bracelet-area">
+            <div id="bracelet" class="bracelet"></div>
         </div>
     </div>
-    <div id="bracelet-area">
-        <h2></h2>
-    </div>
-    <div class="total-price">
-        <h2>Toplam Fiyat: $<span id="total-price">0</span></h2>
-    </div>
-    <button id="add-to-cart">Sepete Ekle</button>
-</div>
-<script src="{{ 'scripts.js' | asset_url }}"></script>
-
+    <script src="scripts.js"></script>
+</body>
+</html>
