@@ -1,8 +1,7 @@
 let totalPrice = 0;
-const braceletArea = document.querySelector('.bracelet');
-const initialStoneArea = document.querySelector('.stones');
+const braceletArea = document.getElementById('bracelet-area');
+const stones = document.getElementById('stones');
 
-// Generate Bracelet Button Click Event
 document.getElementById('generate-bracelet').addEventListener('click', generateBracelet);
 
 function generateBracelet() {
@@ -10,21 +9,21 @@ function generateBracelet() {
     const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
     const numStones = getNumStones(size, stoneSize);
 
-    braceletArea.innerHTML = ''; // Clear previous placeholders
+    braceletArea.innerHTML = '';
     createPlaceHolders(numStones, stoneSize);
 }
 
 function getNumStones(size, stoneSize) {
     const stoneCounts = {
-        '6mm': { 'S': 27, 'M': 30, 'L': 33 },
-        '8mm': { 'S': 20, 'M': 23, 'L': 26 },
-        '10mm': { 'S': 16, 'M': 18, 'L': 20 }
+        '6': { 'S': 27, 'M': 30, 'L': 33 },
+        '8': { 'S': 20, 'M': 23, 'L': 26 },
+        '10': { 'S': 15, 'M': 18, 'L': 21 }
     };
     return stoneCounts[stoneSize][size];
 }
 
 function createPlaceHolders(numStones, stoneSize) {
-    const radius = braceletArea.offsetWidth / 2 - 20; // Adjust for placeholder size
+    const radius = braceletArea.offsetWidth / 2 - 20;
     const angleStep = (2 * Math.PI) / numStones;
 
     for (let i = 0; i < numStones; i++) {
@@ -34,22 +33,21 @@ function createPlaceHolders(numStones, stoneSize) {
 
         const placeHolder = document.createElement('div');
         placeHolder.className = 'place-holder';
-        placeHolder.style.width = stoneSize === '6mm' ? '20px' : stoneSize === '8mm' ? '25px' : '30px';
-        placeHolder.style.height = stoneSize === '6mm' ? '20px' : stoneSize === '8mm' ? '25px' : '30px';
+        placeHolder.style.width = `${stoneSize}px`;
+        placeHolder.style.height = `${stoneSize}px`;
         placeHolder.style.left = `${x}px`;
         placeHolder.style.top = `${y}px`;
         braceletArea.appendChild(placeHolder);
     }
 }
 
-// Stone dragging functionality
 document.querySelectorAll('.stone').forEach(stone => {
     stone.addEventListener('dragstart', dragStart);
     stone.addEventListener('dragend', dragEnd);
 });
 
-document.getElementById('bracelet-area').addEventListener('dragover', dragOver);
-document.getElementById('bracelet-area').addEventListener('drop', drop);
+braceletArea.addEventListener('dragover', dragOver);
+braceletArea.addEventListener('drop', drop);
 
 function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.src);
@@ -78,37 +76,32 @@ function dragEnd(e) {
 function drop(e) {
     e.preventDefault();
     const src = e.dataTransfer.getData('text/plain');
-    const price = e.dataTransfer.getData('price');
-
+    const price = parseFloat(e.dataTransfer.getData('price'));
     const img = document.createElement('img');
     img.src = src;
     img.className = 'stone';
-    img.style.width = '40px';
-    img.style.height = '40px';
-    img.dataset.price = price;
+    img.style.width = '50px';
+    img.style.height = '50px';
 
     const closestPlaceHolder = getClosestPlaceHolder(e.clientX, e.clientY);
     if (closestPlaceHolder) {
         closestPlaceHolder.innerHTML = '';
         closestPlaceHolder.appendChild(img);
-        updateTotalPrice(parseFloat(price));
+        updateTotalPrice(price);
     }
 }
 
 function getClosestPlaceHolder(x, y) {
-    let closest = null;
     let minDistance = Infinity;
-
-    document.querySelectorAll('.place-holder').forEach(placeHolder => {
+    let closest = null;
+    braceletArea.querySelectorAll('.place-holder').forEach(placeHolder => {
         const rect = placeHolder.getBoundingClientRect();
-        const distance = Math.sqrt(Math.pow(x - rect.left - rect.width / 2, 2) + Math.pow(y - rect.top - rect.height / 2, 2));
-
+        const distance = Math.hypot(rect.left + rect.width / 2 - x, rect.top + rect.height / 2 - y);
         if (distance < minDistance) {
             minDistance = distance;
             closest = placeHolder;
         }
     });
-
     return closest;
 }
 
