@@ -8,26 +8,32 @@
 </head>
 <body>
     <div class="container">
-        <div class="controls">
-            <label for="size">Ölçü:</label>
-            <input type="radio" name="size" value="S" checked> S (16cm)
-            <input type="radio" name="size" value="M"> M (18cm)
-            <input type="radio" name="size" value="L"> L (20cm)
-            <br>
-            <label for="stone-size">Taş Boyutu:</label>
-            <input type="radio" name="stone-size" value="6" checked> 6mm
-            <input type="radio" name="stone-size" value="8"> 8mm
-            <input type="radio" name="stone-size" value="10"> 10mm
-            <button id="generate-bracelet">Generate Bracelet</button>
+        <div class="sidebar">
+            <div class="controls">
+                <h2>Ölçü</h2>
+                <label><input type="radio" name="size" value="S"> S (16cm)</label>
+                <label><input type="radio" name="size" value="M"> M (18cm)</label>
+                <label><input type="radio" name="size" value="L"> L (20cm)</label>
+                <h2>Taş Boyutu</h2>
+                <label><input type="radio" name="stone-size" value="6"> 6mm</label>
+                <label><input type="radio" name="stone-size" value="8"> 8mm</label>
+                <label><input type="radio" name="stone-size" value="10"> 10mm</label>
+                <button id="generate-bracelet">Generate Bracelet</button>
+            </div>
+            <div class="stones">
+                <h2>Değerli Taşlar</h2>
+                <input type="text" placeholder="Taş adı, Burç adı, Fayda">
+                <img src="akik_botswana.png" class="stone" data-price="10" draggable="true">
+                <img src="akik_hint.png" class="stone" data-price="15" draggable="true">
+                <!-- Add more stones as needed -->
+            </div>
         </div>
-        <div class="stones">
-            <h3>Değerli Taşlar</h3>
-            <div class="stone" draggable="true" data-price="10" data-name="Akik Botswana"><img src="akik_botswana.png" alt="Akik Botswana"></div>
-            <div class="stone" draggable="true" data-price="15" data-name="Akik Hint"><img src="akik_hint.png" alt="Akik Hint"></div>
-            <!-- Add more stones as needed -->
-        </div>
-        <div id="bracelet-area" class="bracelet-area">
-            <div id="bracelet" class="bracelet"></div>
+        <div class="main">
+            <div id="bracelet-area" class="bracelet"></div>
+            <div class="price">
+                <h2>Total Price: <span id="total-price">$0</span></h2>
+                <button id="add-to-cart">Sepete Ekle</button>
+            </div>
         </div>
     </div>
     <script src="scripts.js"></script>
