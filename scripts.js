@@ -23,13 +23,13 @@ function getNumStones(size, stoneSize) {
 }
 
 function createPlaceHolders(numStones, stoneSize) {
-    const radius = braceletArea.offsetWidth / 2 - 20;
+    const radius = 120; // Adjusted to fit within the bracelet area
     const angleStep = (2 * Math.PI) / numStones;
 
     for (let i = 0; i < numStones; i++) {
         const angle = angleStep * i;
-        const x = radius * Math.cos(angle) + braceletArea.offsetWidth / 2 - 20;
-        const y = radius * Math.sin(angle) + braceletArea.offsetHeight / 2 - 20;
+        const x = radius * Math.cos(angle) + braceletArea.offsetWidth / 2 - stoneSize / 2;
+        const y = radius * Math.sin(angle) + braceletArea.offsetHeight / 2 - stoneSize / 2;
 
         const placeHolder = document.createElement('div');
         placeHolder.className = 'place-holder';
@@ -84,8 +84,7 @@ function drop(e) {
     img.style.height = '50px';
 
     const closestPlaceHolder = getClosestPlaceHolder(e.clientX, e.clientY);
-    if (closestPlaceHolder) {
-        closestPlaceHolder.innerHTML = '';
+    if (closestPlaceHolder && !closestPlaceHolder.hasChildNodes()) {
         closestPlaceHolder.appendChild(img);
         updateTotalPrice(price);
     }
