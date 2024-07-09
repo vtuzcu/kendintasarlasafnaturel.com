@@ -1,127 +1,70 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const stones = document.querySelectorAll('.stone');
-    const braceletArea = document.getElementById('bracelet-area');
-    const totalPriceElement = document.getElementById('total-price');
-    const sizeInputs = document.querySelectorAll('input[name="size"]');
-    const stoneSizeInputs = document.querySelectorAll('input[name="stone-size"]');
-    let totalPrice = 0;
+body {
+    font-family: Arial, sans-serif;
+}
 
-    sizeInputs.forEach(input => {
-        input.addEventListener('change', generateBraceletTemplate);
-    });
+.container {
+    display: flex;
+}
 
-    stoneSizeInputs.forEach(input => {
-        input.addEventListener('change', generateBraceletTemplate);
-    });
+.controls {
+    flex: 1;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+}
 
-    document.getElementById('generate-bracelet').addEventListener('click', generateBraceletTemplate);
+.stones {
+    flex: 1;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+}
 
-    stones.forEach(stone => {
-        stone.addEventListener('dragstart', dragStart);
-        stone.addEventListener('touchstart', touchStart, { passive: false });
-    });
+.stone {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    cursor: grab;
+}
 
-    braceletArea.addEventListener('dragover', dragOver);
-    braceletArea.addEventListener('drop', drop);
-    braceletArea.addEventListener('touchmove', touchMove, { passive: false });
-    braceletArea.addEventListener('touchend', touchEnd, { passive: false });
+.stone img {
+    width: 100%;
+    height: 100%;
+}
 
-    function dragStart(e) {
-        e.dataTransfer.setData('text/plain', e.target.dataset.id);
-    }
+.bracelet-area {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+}
 
-    function dragOver(e) {
-        e.preventDefault();
-    }
+.bracelet {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
 
-    function drop(e) {
-        e.preventDefault();
-        const id = e.dataTransfer.getData('text');
-        const stone = document.querySelector(`.stone[data-id='${id}']`);
-        if (stone) {
-            addStoneToBracelet(stone);
-        }
-    }
+.place-holder {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
 
-    function touchStart(e) {
-        e.preventDefault();
-        const touch = e.touches[0];
-        const stone = e.target;
-        stone.classList.add('dragging');
-        stone.style.position = 'absolute';
-        stone.style.left = `${touch.pageX - stone.offsetWidth / 2}px`;
-        stone.style.top = `${touch.pageY - stone.offsetHeight / 2}px`;
-        document.body.append(stone);
+#bracelet-area {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ccc;
+    margin: 10px;
+}
 
-        stone.addEventListener('touchmove', touchMove);
-        stone.addEventListener('touchend', touchEnd);
-    }
-
-    function touchMove(e) {
-        e.preventDefault();
-        const touch = e.touches[0];
-        const stone = document.querySelector('.dragging');
-        if (stone) {
-            stone.style.left = `${touch.pageX - stone.offsetWidth / 2}px`;
-            stone.style.top = `${touch.pageY - stone.offsetHeight / 2}px`;
-        }
-    }
-
-    function touchEnd(e) {
-        e.preventDefault();
-        const touch = e.changedTouches[0];
-        const stone = document.querySelector('.dragging');
-        if (stone) {
-            const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-            if (dropTarget && dropTarget.id === 'bracelet-area') {
-                addStoneToBracelet(stone);
-            } else {
-                stone.remove();
-            }
-            stone.classList.remove('dragging');
-        }
-    }
-
-    function addStoneToBracelet(stone) {
-        const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
-        const newStone = document.createElement('div');
-        newStone.className = 'stone';
-        newStone.style.width = `${stoneSize}px`;
-        newStone.style.height = `${stoneSize}px`;
-        newStone.style.backgroundImage = `url(${stone.src})`;
-        newStone.style.backgroundSize = 'cover';
-        braceletArea.appendChild(newStone);
-
-        const price = parseFloat(stone.dataset.price);
-        totalPrice += price;
-        totalPriceElement.textContent = totalPrice.toFixed(2);
-    }
-
-    function generateBraceletTemplate() {
-        braceletArea.innerHTML = '';
-        const size = document.querySelector('input[name="size"]:checked').value;
-        const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
-        const stoneCount = size === 'S' ? 16 : size === 'M' ? 18 : 20;
-        const radius = (braceletArea.offsetWidth / 2) - (parseInt(stoneSize) / 2);
-
-        for (let i = 0; i < stoneCount; i++) {
-            const angle = (i / stoneCount) * (2 * Math.PI);
-            const x = radius * Math.cos(angle) + braceletArea.offsetWidth / 2;
-            const y = radius * Math.sin(angle) + braceletArea.offsetHeight / 2;
-
-            const placeholder = document.createElement('div');
-            placeholder.className = 'place-holder';
-            placeholder.style.width = `${stoneSize}px`;
-            placeholder.style.height = `${stoneSize}px`;
-            placeholder.style.left = `${x - stoneSize / 2}px`;
-            placeholder.style.top = `${y - stoneSize / 2}px`;
-            braceletArea.appendChild(placeholder);
-        }
-    }
-
-    document.getElementById('add-to-cart').addEventListener('click', function () {
-        alert(`Total price is $${totalPrice.toFixed(2)}`);
-    });
-
-    generateBraceletTemplate(); // Initialize the template on load
-});
+#bracelet {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed #ccc;
+    border-radius: 50%;
+}
