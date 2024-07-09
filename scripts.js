@@ -1,9 +1,6 @@
-/* scripts.js */
-
 let totalPrice = 0;
-const braceletArea = document.querySelector('#bracelet-area');
+const braceletArea = document.querySelector('.bracelet');
 const initialStoneArea = document.querySelector('.stones');
-const totalPriceElement = document.querySelector('#total-price');
 
 // Generate Bracelet Button Click Event
 document.getElementById('generate-bracelet').addEventListener('click', generateBracelet);
@@ -13,7 +10,7 @@ function generateBracelet() {
     const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
     const numStones = getNumStones(size, stoneSize);
 
-    braceletArea.innerHTML = ''; // Clear existing placeholders
+    braceletArea.innerHTML = ''; // Eski yerleştiricileri temizle
     createPlaceHolders(numStones, stoneSize);
 }
 
@@ -27,7 +24,7 @@ function getNumStones(size, stoneSize) {
 }
 
 function createPlaceHolders(numStones, stoneSize) {
-    const radius = braceletArea.offsetWidth / 2 - 20; // Adjust size accordingly
+    const radius = braceletArea.offsetWidth / 2 - 20; // Beyaz taş boyutunu 40px olarak ayarladık
     const angleStep = (2 * Math.PI) / numStones;
 
     for (let i = 0; i < numStones; i++) {
@@ -45,14 +42,14 @@ function createPlaceHolders(numStones, stoneSize) {
     }
 }
 
-// Drag and drop functionality
+// Taşları sürükleme işlevselliği
 document.querySelectorAll('.stone').forEach(stone => {
     stone.addEventListener('dragstart', dragStart);
-    stone.addEventListener('dragend', dragEnd); // Add functionality to drag end
+    stone.addEventListener('dragend', dragEnd); // Sürükleme bittiğinde işlevi ekleyelim
 });
 
-braceletArea.addEventListener('dragover', dragOver);
-braceletArea.addEventListener('drop', drop);
+document.getElementById('bracelet-area').addEventListener('dragover', dragOver);
+document.getElementById('bracelet-area').addEventListener('drop', drop);
 
 function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.src);
@@ -81,25 +78,41 @@ function dragEnd(e) {
 function drop(e) {
     e.preventDefault();
     const src = e.dataTransfer.getData('text/plain');
-    const price = parseFloat(e.dataTransfer.getData('price'));
+    const price = e.dataTransfer.getData('price');
 
-    const newStone = document.createElement('img');
-    newStone.src = src;
-    newStone.className = 'stone';
-    newStone.style.position = 'absolute';
-    newStone.style.width = '40px';
-    newStone.style.height = '40px';
-    newStone.style.left = `${e.clientX - braceletArea.offsetLeft - 20}px`;
-    newStone.style.top = `${e.clientY - braceletArea.offsetTop - 20}px`;
+    const img = document.createElement('img');
+    img.src = src;
+    img.className = 'stone';
+    img.style.width = '40px';
+    img.style.height = '40px';
+    img.dataset.price = price;
 
-    braceletArea.appendChild(newStone);
-    updateTotalPrice(price);
+    const closestPlaceHolder = getClosestPlaceHolder(e.clientX, e.clientY);
+    if (closestPlaceHolder) {
+        closestPlaceHolder.innerHTML = '';
+        closestPlaceHolder.appendChild(img);
+        updateTotalPrice(parseFloat(price));
+    }
+}
 
-    newStone.addEventListener('dragstart', dragStart);
-    newStone.addEventListener('dragend', dragEnd);
+function getClosestPlaceHolder(x, y) {
+    let closest = null;
+    let minDistance = Infinity;
+
+    document.querySelectorAll('.place-holder').forEach(placeHolder => {
+        const rect = placeHolder.getBoundingClientRect();
+        const distance = Math.sqrt(Math.pow(x - rect.left - rect.width / 2, 2) + Math.pow(y - rect.top - rect.height / 2, 2));
+
+        if (distance < minDistance) {
+            minDistance = distance;
+            closest = placeHolder;
+        }
+    });
+
+    return closest;
 }
 
 function updateTotalPrice(price) {
     totalPrice += price;
-    totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+    document.getElementById('total-price').textContent = totalPrice.toFixed(2);
 }
