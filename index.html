@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,37 +8,35 @@
 </head>
 <body>
     <div class="container">
-        <h1>Bileklik Tasarımcısı</h1>
         <div class="controls">
+            <h1>Bileklik Tasarımcısı</h1>
             <label for="size">Ölçü:</label>
-            <input type="radio" id="size-s" name="size" value="S"> S (16cm)
-            <input type="radio" id="size-m" name="size" value="M"> M (18cm)
-            <input type="radio" id="size-l" name="size" value="L"> L (20cm)
-
+            <input type="radio" name="size" value="S"> S (16cm)
+            <input type="radio" name="size" value="M"> M (18cm)
+            <input type="radio" name="size" value="L"> L (20cm)
+            <br>
             <label for="stone-size">Taş Boyutu:</label>
-            <input type="radio" id="size-6mm" name="stone-size" value="6mm"> 6mm
-            <input type="radio" id="size-8mm" name="stone-size" value="8mm"> 8mm
-            <input type="radio" id="size-10mm" name="stone-size" value="10mm"> 10mm
-
+            <input type="radio" name="stone-size" value="6"> 6mm
+            <input type="radio" name="stone-size" value="8"> 8mm
+            <input type="radio" name="stone-size" value="10"> 10mm
+            <br>
             <button id="generate-bracelet">Generate Bracelet</button>
         </div>
 
-        <div class="stones">
+        <div class="stones" id="stones">
             <h2>Değerli Taşlar</h2>
-            <img src="akik_karnelyan.png" class="stone" draggable="true" data-price="19.24" alt="Akik Karnelyan">
-            <img src="akik_yemen.png" class="stone" draggable="true" data-price="34.62" alt="Akik Yemen">
+            <div class="stone" draggable="true" data-price="20"><img src="akik_karnelyan.png" alt="Akik Karnelyan"></div>
+            <div class="stone" draggable="true" data-price="25"><img src="akik_yemen.png" alt="Akik Yemen"></div>
         </div>
 
-        <div id="bracelet-area" class="bracelet">
+        <div class="bracelet-area" id="bracelet-area">
             <h2>Bilekliğiniz</h2>
         </div>
-
-        <div class="total-price">
-            <h2>Total Price: $<span id="total-price">0</span></h2>
-            <button id="add-to-cart">Sepete Ekle</button>
-        </div>
     </div>
-
+    <div class="price-info">
+        <h2>Total Price: $<span id="total-price">0</span></h2>
+        <button id="add-to-cart">Sepete Ekle</button>
+    </div>
     <script src="scripts.js"></script>
 </body>
 </html>
