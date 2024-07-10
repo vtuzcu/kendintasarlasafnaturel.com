@@ -1,7 +1,9 @@
 let totalPrice = 0;
 const braceletArea = document.getElementById('bracelet-area');
 const stones = document.getElementById('stones');
+const totalPriceElement = document.getElementById('total-price');
 
+// Generate Bracelet Button Click Event
 document.getElementById('generate-bracelet').addEventListener('click', generateBracelet);
 
 function generateBracelet() {
@@ -41,6 +43,7 @@ function createPlaceHolders(numStones, stoneSize) {
     }
 }
 
+// Taşları sürükleme işlevselliği
 document.querySelectorAll('.stone').forEach(stone => {
     stone.addEventListener('dragstart', dragStart);
     stone.addEventListener('dragend', dragEnd);
@@ -106,5 +109,5 @@ function getClosestPlaceHolder(x, y) {
 
 function updateTotalPrice(price) {
     totalPrice += price;
-    document.getElementById('total-price').textContent = totalPrice.toFixed(2);
+    totalPriceElement.textContent = totalPrice.toFixed(2);
 }
