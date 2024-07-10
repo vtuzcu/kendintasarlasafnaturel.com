@@ -4,10 +4,11 @@ body {
 
 .container {
     display: flex;
+    justify-content: space-between;
 }
 
 .stones {
-    flex: 1;
+    width: 20%;
     padding: 20px;
     background-color: #FFA500;
     display: flex;
@@ -27,13 +28,13 @@ body {
 }
 
 .controls {
-    flex: 1;
+    width: 20%;
     padding: 20px;
     background-color: #FFA500;
 }
 
 .bracelet-area {
-    flex: 2;
+    width: 50%;
     padding: 20px;
     border: 1px dashed #000;
     display: flex;
