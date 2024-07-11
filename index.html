@@ -1,42 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bileklik Tasarımcısı</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <div class="stones" id="stones">
-            <h2>Değerli Taşlar</h2>
-            <div class="stone" draggable="true" data-price="20"><img src="akik_karnelyan.png" alt="Akik Karnelyan"></div>
-            <div class="stone" draggable="true" data-price="25"><img src="akik_yemen.png" alt="Akik Yemen"></div>
-        </div>
-
-        <div class="bracelet-area" id="bracelet-area">
-            <h2>Bilekliğiniz</h2>
-        </div>
-
-        <div class="controls">
-            <h1>Bileklik Tasarımcısı</h1>
-            <label for="size">Ölçü:</label>
-            <input type="radio" name="size" value="S"> S (16cm)
-            <input type="radio" name="size" value="M"> M (18cm)
-            <input type="radio" name="size" value="L"> L (20cm)
-            <br>
-            <label for="stone-size">Taş Boyutu:</label>
-            <input type="radio" name="stone-size" value="6"> 6mm
-            <input type="radio" name="stone-size" value="8"> 8mm
-            <input type="radio" name="stone-size" value="10"> 10mm
-            <br>
-            <button id="generate-bracelet">Generate Bracelet</button>
-        </div>
-    </div>
-    <div class="price-info">
-        <h2>Total Price: $<span id="total-price">0</span></h2>
-        <button id="add-to-cart">Sepete Ekle</button>
-    </div>
-    <script src="scripts.js"></script>
-</body>
-</html>
+<html><head><base href="https://www.gemcrafters.ai/">
+    <title>GemCrafters.ai - Custom Gemstone Bracelet Designer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .gemstone-selection {
+            width: 30%;
+        }
+        .bracelet-designer {
+            width: 65%;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .gem-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .gem {
+            border-radius: 50%;
+            cursor: move;
+            transition: transform 0.2s;
+        }
+        .gem:hover {
+            transform: scale(1.1);
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .bracelet-template {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .gem-slot {
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            background-color: #f9f9f9;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #price {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        #addToCart, #generateBracelet {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        #addToCart:hover, #generateBracelet:hover {
+            background-color: #45a049;
+        }
