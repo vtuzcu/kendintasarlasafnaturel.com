@@ -1,69 +1,32 @@
-body {
-    font-family: Arial, sans-serif;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.stones {
-    width: 20%;
-    padding: 20px;
-    background-color: #FFA500;
-    display: flex;
-    flex-direction: column;
-}
-
-.stone {
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-    cursor: grab;
-}
-
-.stone img {
-    width: 100%;
-    height: 100%;
-}
-
-.controls {
-    width: 20%;
-    padding: 20px;
-    background-color: #FFA500;
-}
-
-.bracelet-area {
-    width: 50%;
-    padding: 20px;
-    border: 1px dashed #000;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    height: 300px; /* Ensure enough height for bracelet area */
-}
-
-.bracelet-area h2 {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.place-holder {
-    width: 40px;
-    height: 40px;
-    margin: 5px;
-    border-radius: 50%;
-    background-color: #fff;
-    border: 1px solid #000;
-    position: absolute;
-}
-
-.price-info {
-    padding: 20px;
-    background-color: #FFA500;
-    text-align: center;
-}
+ </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gemstone-selection">
+            <h2>Select Your Gems</h2>
+            <div class="gem-container" id="gemContainer">
+                <!-- Gems will be dynamically generated here -->
+            </div>
+            <div class="options">
+                <h3>Gemstone Size</h3>
+                <select id="gemSize">
+                    <option value="6">6 mm</option>
+                    <option value="8">8 mm</option>
+                    <option value="10">10 mm</option>
+                </select>
+                <h3>Bracelet Size</h3>
+                <select id="braceletSize">
+                    <option value="18">18 cm</option>
+                    <option value="22">22 cm</option>
+                    <option value="26">26 cm</option>
+                </select>
+                <button id="generateBracelet">Generate Bracelet</button>
+            </div>
+        </div>
+        <div class="bracelet-designer">
+            <h2>Design Your Bracelet</h2>
+            <div class="bracelet-template" id="braceletTemplate"></div>
+            <div id="price">Total Price: $0</div>
+            <button id="addToCart">Add to Cart</button>
+        </div>
+    </div>
