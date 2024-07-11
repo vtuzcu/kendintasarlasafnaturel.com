@@ -119,4 +119,3 @@
         generateGems();
         updateBraceletTemplate();
     </script>
-</body></html>
