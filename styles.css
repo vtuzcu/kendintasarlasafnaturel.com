@@ -1,32 +1,98 @@
- </style>
-</head>
-<body>
-    <div class="container">
-        <div class="gemstone-selection">
-            <h2>Select Your Gems</h2>
-            <div class="gem-container" id="gemContainer">
-                <!-- Gems will be dynamically generated here -->
-            </div>
-            <div class="options">
-                <h3>Gemstone Size</h3>
-                <select id="gemSize">
-                    <option value="6">6 mm</option>
-                    <option value="8">8 mm</option>
-                    <option value="10">10 mm</option>
-                </select>
-                <h3>Bracelet Size</h3>
-                <select id="braceletSize">
-                    <option value="18">18 cm</option>
-                    <option value="22">22 cm</option>
-                    <option value="26">26 cm</option>
-                </select>
-                <button id="generateBracelet">Generate Bracelet</button>
-            </div>
-        </div>
-        <div class="bracelet-designer">
-            <h2>Design Your Bracelet</h2>
-            <div class="bracelet-template" id="braceletTemplate"></div>
-            <div id="price">Total Price: $0</div>
-            <button id="addToCart">Add to Cart</button>
-        </div>
-    </div>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.gemstone-selection {
+    width: 30%;
+}
+
+.bracelet-designer {
+    width: 65%;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.gem-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.gem {
+    border-radius: 50%;
+    cursor: move;
+    transition: transform 0.2s;
+}
+
+.gem:hover {
+    transform: scale(1.1);
+}
+
+.options {
+    margin-bottom: 20px;
+}
+
+select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.bracelet-template {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.gem-slot {
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background-color: #f9f9f9;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#addToCart, #generateBracelet {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+#addToCart:hover, #generateBracelet:hover {
+    background-color: #45a049;
+}
