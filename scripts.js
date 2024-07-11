@@ -1,113 +1,122 @@
-let totalPrice = 0;
-const braceletArea = document.getElementById('bracelet-area');
-const stones = document.getElementById('stones');
-const totalPriceElement = document.getElementById('total-price');
+<script>
+        const braceletTemplate = document.getElementById('braceletTemplate');
+        const gemContainer = document.getElementById('gemContainer');
+        const gemSizeSelect = document.getElementById('gemSize');
+        const braceletSizeSelect = document.getElementById('braceletSize');
+        const priceDisplay = document.getElementById('price');
+        const addToCartButton = document.getElementById('addToCart');
+        const generateBraceletButton = document.getElementById('generateBracelet');
 
-// Generate Bracelet Button Click Event
-document.getElementById('generate-bracelet').addEventListener('click', generateBracelet);
+        let totalPrice = 0;
+        let selectedGems = [];
 
-function generateBracelet() {
-    const size = document.querySelector('input[name="size"]:checked').value;
-    const stoneSize = document.querySelector('input[name="stone-size"]:checked').value;
-    const numStones = getNumStones(size, stoneSize);
+        const gemTypes = [
+            { name: 'Ruby', price: 100, color: '#E0115F' },
+            { name: 'Sapphire', price: 120, color: '#0F52BA' },
+            { name: 'Emerald', price: 150, color: '#50C878' },
+            { name: 'Diamond', price: 200, color: '#B9F2FF' },
+            { name: 'Amethyst', price: 80, color: '#9966CC' },
+            { name: 'Topaz', price: 90, color: '#FFC87C' }
+        ];
 
-    braceletArea.innerHTML = '';
-    createPlaceHolders(numStones, stoneSize);
-}
-
-function getNumStones(size, stoneSize) {
-    const stoneCounts = {
-        '6': { 'S': 27, 'M': 30, 'L': 33 },
-        '8': { 'S': 20, 'M': 23, 'L': 26 },
-        '10': { 'S': 15, 'M': 18, 'L': 21 }
-    };
-    return stoneCounts[stoneSize][size];
-}
-
-function createPlaceHolders(numStones, stoneSize) {
-    const radius = 120; // Adjusted to fit within the bracelet area
-    const angleStep = (2 * Math.PI) / numStones;
-
-    for (let i = 0; i < numStones; i++) {
-        const angle = angleStep * i;
-        const x = radius * Math.cos(angle) + braceletArea.offsetWidth / 2 - stoneSize / 2;
-        const y = radius * Math.sin(angle) + braceletArea.offsetHeight / 2 - stoneSize / 2;
-
-        const placeHolder = document.createElement('div');
-        placeHolder.className = 'place-holder';
-        placeHolder.style.width = `${stoneSize}px`;
-        placeHolder.style.height = `${stoneSize}px`;
-        placeHolder.style.left = `${x}px`;
-        placeHolder.style.top = `${y}px`;
-        braceletArea.appendChild(placeHolder);
-    }
-}
-
-// Taşları sürükleme işlevselliği
-document.querySelectorAll('.stone').forEach(stone => {
-    stone.addEventListener('dragstart', dragStart);
-    stone.addEventListener('dragend', dragEnd);
-});
-
-braceletArea.addEventListener('dragover', dragOver);
-braceletArea.addEventListener('drop', drop);
-
-function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.src);
-    e.dataTransfer.setData('price', e.target.dataset.price);
-    e.target.classList.add('dragging');
-}
-
-function dragOver(e) {
-    e.preventDefault();
-}
-
-function dragEnd(e) {
-    const draggingStone = document.querySelector('.dragging');
-    if (draggingStone) {
-        const rect = braceletArea.getBoundingClientRect();
-        const withinBraceletArea = e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
-        if (!withinBraceletArea) {
-            const price = parseFloat(draggingStone.dataset.price);
-            updateTotalPrice(-price);
-            draggingStone.remove();
+        function generateGems() {
+            gemContainer.innerHTML = '';
+            const gemSize = gemSizeSelect.value + 'px';
+            gemTypes.forEach(gemType => {
+                const gem = document.createElement('div');
+                gem.className = 'gem';
+                gem.style.width = gemSize;
+                gem.style.height = gemSize;
+                gem.style.backgroundColor = gemType.color;
+                gem.draggable = true;
+                gem.dataset.name = gemType.name;
+                gem.dataset.price = gemType.price;
+                gem.addEventListener('dragstart', drag);
+                gemContainer.appendChild(gem);
+            });
         }
-        draggingStone.classList.remove('dragging');
-    }
-}
 
-function drop(e) {
-    e.preventDefault();
-    const src = e.dataTransfer.getData('text/plain');
-    const price = parseFloat(e.dataTransfer.getData('price'));
-    const img = document.createElement('img');
-    img.src = src;
-    img.className = 'stone';
-    img.style.width = '50px';
-    img.style.height = '50px';
+        function updateBraceletTemplate() {
+            braceletTemplate.innerHTML = '';
+            const braceletSize = parseInt(braceletSizeSelect.value);
+            const gemSize = parseInt(gemSizeSelect.value);
+            const radius = 130; // Radius of the circular bracelet
+            const centerX = 150;
+            const centerY = 150;
+            const gemCount = Math.floor(braceletSize / 2);
+            const angleStep = (2 * Math.PI) / gemCount;
 
-    const closestPlaceHolder = getClosestPlaceHolder(e.clientX, e.clientY);
-    if (closestPlaceHolder && !closestPlaceHolder.hasChildNodes()) {
-        closestPlaceHolder.appendChild(img);
-        updateTotalPrice(price);
-    }
-}
+            for (let i = 0; i < gemCount; i++) {
+                const angle = i * angleStep;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
 
-function getClosestPlaceHolder(x, y) {
-    let minDistance = Infinity;
-    let closest = null;
-    braceletArea.querySelectorAll('.place-holder').forEach(placeHolder => {
-        const rect = placeHolder.getBoundingClientRect();
-        const distance = Math.hypot(rect.left + rect.width / 2 - x, rect.top + rect.height / 2 - y);
-        if (distance < minDistance) {
-            minDistance = distance;
-            closest = placeHolder;
+                const gemSlot = document.createElement('div');
+                gemSlot.className = 'gem-slot';
+                gemSlot.style.left = `${x - gemSize/2}px`;
+                gemSlot.style.top = `${y - gemSize/2}px`;
+                gemSlot.style.width = `${gemSize}px`;
+                gemSlot.style.height = `${gemSize}px`;
+                gemSlot.addEventListener('dragover', allowDrop);
+                gemSlot.addEventListener('drop', drop);
+                braceletTemplate.appendChild(gemSlot);
+            }
         }
-    });
-    return closest;
-}
 
-function updateTotalPrice(price) {
-    totalPrice += price;
-    totalPriceElement.textContent = totalPrice.toFixed(2);
-}
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.outerHTML);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const gemElement = new DOMParser().parseFromString(data, 'text/html').body.firstChild;
+            
+            if (ev.target.classList.contains('gem-slot') && !ev.target.hasChildNodes()) {
+                ev.target.appendChild(gemElement);
+                updatePrice(gemElement.dataset.price, 'add');
+            } else if (ev.target.classList.contains('gem-slot') && ev.target.hasChildNodes()) {
+                updatePrice(ev.target.firstChild.dataset.price, 'subtract');
+                ev.target.innerHTML = '';
+                ev.target.appendChild(gemElement);
+                updatePrice(gemElement.dataset.price, 'add');
+            }
+
+            gemElement.addEventListener('dblclick', removeGem);
+        }
+
+        function removeGem(ev) {
+            const gemSlot = ev.target.parentNode;
+            updatePrice(ev.target.dataset.price, 'subtract');
+            gemSlot.innerHTML = '';
+        }
+
+        function updatePrice(price, operation) {
+            if (operation === 'add') {
+                totalPrice += parseInt(price);
+            } else if (operation === 'subtract') {
+                totalPrice -= parseInt(price);
+            }
+            priceDisplay.textContent = `Total Price: $${totalPrice}`;
+        }
+
+        generateBraceletButton.addEventListener('click', () => {
+            updateBraceletTemplate();
+            generateGems();
+        });
+
+        addToCartButton.addEventListener('click', () => {
+            alert(`Bracelet added to cart! Total price: $${totalPrice}`);
+        });
+
+        gemSizeSelect.addEventListener('change', generateGems);
+
+        // Initial setup
+        generateGems();
+        updateBraceletTemplate();
+    </script>
+</body></html>
