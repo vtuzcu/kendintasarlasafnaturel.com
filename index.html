@@ -8,34 +8,36 @@
 </head>
 <body>
     <div class="container">
-        <div class="gemstone-selection">
-            <h2>Select Your Gems</h2>
+        <h3>Doğal Taşını Seç</h3>
+        <div class="gem-selection">
             <div class="gem-container" id="gemContainer">
                 <!-- Gems will be dynamically generated here -->
             </div>
-            <div class="options">
-                <h3>Gemstone Size</h3>
-                <select id="gemSize">
-                    <option value="6">6 mm</option>
-                    <option value="8">8 mm</option>
-                    <option value="10">10 mm</option>
-                </select>
-                <h3>Bracelet Size</h3>
-                <select id="braceletSize">
-                    <option value="18">18 cm</option>
-                    <option value="22">22 cm</option>
-                    <option value="26">26 cm</option>
-                </select>
-                <button id="generateBracelet">Generate Bracelet</button>
-            </div>
+        </div>
+        <div class="scroll-instruction">
+            ← taş seçmek için kaydır →
+        </div>
+        <div class="options">
+            <h3>Taş Çapı</h3>
+            <select id="gemSize">
+                <option value="6">6 mm</option>
+                <option value="8">8 mm</option>
+            </select>
+            <h3>Bileklik Ölçüsü</h3>
+            <select id="braceletSize">
+                <option value="16">16 cm</option>
+                <option value="18">18 cm</option>
+                <option value="20">20 cm</option>
+            </select>
+            <button id="generateBracelet">Bilekliğini Tasarla</button>
         </div>
         <div class="bracelet-designer">
-            <h2>Design Your Bracelet</h2>
             <div class="bracelet-template" id="braceletTemplate"></div>
-            <div id="price">Total Price: $0</div>
-            <button id="addToCart">Add to Cart</button>
+            <div id="price">Toplam Fiyat: 0 TL</div>
+            <button id="addToCart">Sepete Ekle</button>
         </div>
     </div>
+
     <script src="scripts.js"></script>
 </body>
 </html>
