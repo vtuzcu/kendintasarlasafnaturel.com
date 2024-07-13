@@ -2,72 +2,87 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
-    padding: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    touch-action: none;
 }
-
 .container {
     display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
+    flex-direction: column;
+    max-width: 100%;
     margin: 0 auto;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    padding: 20px;
+    padding: 10px;
+    flex-grow: 1;
+    overflow: hidden;
 }
-
-.gemstone-selection {
-    width: 30%;
+.gem-selection {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+    margin-bottom: 5px;
 }
-
-.bracelet-designer {
-    width: 65%;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    position: relative;
-}
-
-h1, h2 {
-    color: #333;
-}
-
 .gem-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
+    display: inline-flex;
+    gap: 20px;
 }
-
+.gem-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+}
 .gem {
     border-radius: 50%;
-    cursor: move;
+    cursor: grab;
     transition: transform 0.2s;
+    touch-action: none;
 }
-
-.gem:hover {
-    transform: scale(1.1);
+.gem:active {
+    cursor: grabbing;
 }
-
-.options {
-    margin-bottom: 20px;
+.gem-name {
+    font-size: 10px;
+    text-align: center;
+    margin-top: 5px;
+    word-wrap: break-word;
+    max-width: 100%;
 }
-
+.options, .bracelet-designer {
+    margin-bottom: 10px;
+}
+.bracelet-designer {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+h1, h2, h3 {
+    color: #333;
+    font-size: 1.2em;
+    margin: 5px 0;
+    text-align: center;
+}
 select {
     width: 100%;
     padding: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
-
 .bracelet-template {
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
+    flex-grow: 1;
     position: relative;
+    overflow: hidden;
 }
-
 .gem-slot {
-    border: 2px solid #ddd;
+    border: 1px solid #ddd;
     border-radius: 50%;
     background-color: #f9f9f9;
     position: absolute;
@@ -75,24 +90,28 @@ select {
     align-items: center;
     justify-content: center;
 }
-
 #price {
-    font-size: 24px;
+    font-size: 16px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 5px;
 }
-
 #addToCart, #generateBracelet {
-    background-color: #4CAF50;
+    background-color: #000080;
     color: white;
-    padding: 10px 20px;
+    padding: 8px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
+    font-size: 14px;
+    margin-top: 5px;
+    width: 100%;
 }
-
 #addToCart:hover, #generateBracelet:hover {
-    background-color: #45a049;
+    background-color: #000066;
+}
+.scroll-instruction {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
 }
