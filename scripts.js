@@ -8,112 +8,50 @@ const generateBraceletButton = document.getElementById('generateBracelet');
 
 let totalPrice = 0;
 let selectedGems = [];
+let currentGemSize = 6;
+let draggedGem = null;
 
 const gemTypes = [
-    { name: 'Ruby', price: 100, color: '#E0115F' },
-    { name: 'Sapphire', price: 120, color: '#0F52BA' },
-    { name: 'Emerald', price: 150, color: '#50C878' },
-    { name: 'Diamond', price: 200, color: '#B9F2FF' },
-    { name: 'Amethyst', price: 80, color: '#9966CC' },
-    { name: 'Topaz', price: 90, color: '#FFC87C' }
+    { name: 'Ruby', price: 100, color: '#E0115F', localName: 'Yakut' },
+    { name: 'Sapphire', price: 120, color: '#0F52BA', localName: 'Gök Yakut' },
+    { name: 'Emerald', price: 150, color: '#50C878', localName: 'Zümrüt' },
+    { name: 'Diamond', price: 200, color: '#B9F2FF', localName: 'Elmas' },
+    { name: 'Amethyst', price: 80, color: '#9966CC', localName: 'Ametist' },
+    { name: 'Topaz', price: 90, color: '#FFC87C', localName: 'Sarı Yakut' },
+    { name: 'Opal', price: 110, color: '#A8C3BC', localName: 'Opal' },
+    { name: 'Garnet', price: 95, color: '#C41E3A', localName: 'Kırmızı Yakut' },
+    { name: 'Peridot', price: 85, color: '#AAFF00', localName: 'Zeberced' },
+    { name: 'Aquamarine', price: 105, color: '#7FFFD4', localName: 'Akuamarin' },
+    { name: 'Citrine', price: 88, color: '#FFB90F', localName: 'Sitrin' },
+    { name: 'Tanzanite', price: 130, color: '#4D5D94', localName: 'Tanzanit' },
+    { name: 'Morganite', price: 115, color: '#FFAEB9', localName: 'Morganit' },
+    { name: 'Alexandrite', price: 180, color: '#008080', localName: 'Aleksandrit' },
+    { name: 'Tourmaline', price: 98, color: '#86608E', localName: 'Turmalin' },
+    { name: 'Moonstone', price: 92, color: '#E6E6FA', localName: 'Ay Taşı' },
+    { name: 'Onyx', price: 82, color: '#353839', localName: 'Oniks' },
+    { name: 'Pearl', price: 108, color: '#FDEEF4', localName: 'İnci' },
+    { name: 'Turquoise', price: 86, color: '#40E0D0', localName: 'Turkuaz' },
+    { name: 'Lapis Lazuli', price: 94, color: '#191970', localName: 'Lapis Lazuli' }
 ];
 
 function generateGems() {
     gemContainer.innerHTML = '';
-    const gemSize = gemSizeSelect.value + 'px';
+    currentGemSize = parseInt(gemSizeSelect.value);
+    const gemSize = currentGemSize * 5 + 'px';
     gemTypes.forEach(gemType => {
+        const gemWrapper = document.createElement('div');
+        gemWrapper.className = 'gem-wrapper';
+
         const gem = document.createElement('div');
         gem.className = 'gem';
         gem.style.width = gemSize;
         gem.style.height = gemSize;
         gem.style.backgroundColor = gemType.color;
-        gem.draggable = true;
         gem.dataset.name = gemType.name;
         gem.dataset.price = gemType.price;
-        gem.addEventListener('dragstart', drag);
-        gemContainer.appendChild(gem);
-    });
-}
+        gem.addEventListener('mousedown', dragStart);
+        gem.addEventListener('touchstart', dragStart, { passive: false });
 
-function updateBraceletTemplate() {
-    braceletTemplate.innerHTML = '';
-    const braceletSize = parseInt(braceletSizeSelect.value);
-    const gemSize = parseInt(gemSizeSelect.value);
-    const radius = 130; // Radius of the circular bracelet
-    const centerX = 150;
-    const centerY = 150;
-    const gemCount = Math.floor(braceletSize / 2);
-    const angleStep = (2 * Math.PI) / gemCount;
-
-    for (let i = 0; i < gemCount; i++) {
-        const angle = i * angleStep;
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
-
-        const gemSlot = document.createElement('div');
-        gemSlot.className = 'gem-slot';
-        gemSlot.style.left = `${x - gemSize/2}px`;
-        gemSlot.style.top = `${y - gemSize/2}px`;
-        gemSlot.style.width = `${gemSize}px`;
-        gemSlot.style.height = `${gemSize}px`;
-        gemSlot.addEventListener('dragover', allowDrop);
-        gemSlot.addEventListener('drop', drop);
-        braceletTemplate.appendChild(gemSlot);
-    }
-}
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.outerHTML);
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    const data = ev.dataTransfer.getData("text");
-    const gemElement = new DOMParser().parseFromString(data, 'text/html').body.firstChild;
-    
-    if (ev.target.classList.contains('gem-slot') && !ev.target.hasChildNodes()) {
-        ev.target.appendChild(gemElement);
-        updatePrice(gemElement.dataset.price, 'add');
-    } else if (ev.target.classList.contains('gem-slot') && ev.target.hasChildNodes()) {
-        updatePrice(ev.target.firstChild.dataset.price, 'subtract');
-        ev.target.innerHTML = '';
-        ev.target.appendChild(gemElement);
-        updatePrice(gemElement.dataset.price, 'add');
-    }
-
-    gemElement.addEventListener('dblclick', removeGem);
-}
-
-function removeGem(ev) {
-    const gemSlot = ev.target.parentNode;
-    updatePrice(ev.target.dataset.price, 'subtract');
-    gemSlot.innerHTML = '';
-}
-
-function updatePrice(price, operation) {
-    if (operation === 'add') {
-        totalPrice += parseInt(price);
-    } else if (operation === 'subtract') {
-        totalPrice -= parseInt(price);
-    }
-    priceDisplay.textContent = `Total Price: $${totalPrice}`;
-}
-
-generateBraceletButton.addEventListener('click', () => {
-    updateBraceletTemplate();
-    generateGems();
-});
-
-addToCartButton.addEventListener('click', () => {
-    alert(`Bracelet added to cart! Total price: $${totalPrice}`);
-});
-
-gemSizeSelect.addEventListener('change', generateGems);
-
-// Initial setup
-generateGems();
-updateBraceletTemplate();
+        const gemName = document.createElement('div');
+        gemName.className = 'gem-name';
+        gemName.textContent = gemType
