@@ -10,9 +10,9 @@ const braceletTemplate = document.getElementById('braceletTemplate');
         let selectedGems = [];
         let currentGemSize = 6;
         let draggedGem = null;
-
+\\color: '#E0115F'\\
         const gemTypes = [
-            { name: 'Ruby', price: 100, color: '#E0115F', localName: 'Yakut' },
+            { name: 'Ruby', price: 100, akik_karnelyan.png, localName: 'Yakut' },
             { name: 'Sapphire', price: 120, color: '#0F52BA', localName: 'Gök Yakut' },
             { name: 'Emerald', price: 150, color: '#50C878', localName: 'Zümrüt' },
             { name: 'Diamond', price: 200, color: '#B9F2FF', localName: 'Elmas' },
